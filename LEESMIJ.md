@@ -40,6 +40,21 @@ volgende keer nog. Velden: `kop` en `items`.
 `uitleg`. Het veld `goed` telt vanaf nul: `goed: 0` is het eerste antwoord, `goed: 1`
 het tweede. Verwissel je antwoorden van volgorde, tel dan opnieuw.
 
+### Twee valkuilen bij het schrijven van vragen
+
+Schrijf je een nieuwe vraag, let dan op twee hints die je ongemerkt weggeeft.
+
+Ten eerste: laat het juiste antwoord niet steeds op dezelfde plek staan. Verdeel ze over
+alle vier de posities. Ten tweede, en dit is de sterkste van de twee: maak het juiste
+antwoord niet langer dan de afleiders. Wie merkt dat het langste antwoord meestal goed
+is, hoeft de vraag niet meer te lezen. Houd de vier opties ongeveer even lang; dat kost
+even werk aan de afleiders, maar dat is precies waar het om gaat.
+
+De cursus controleert dit zelf bij het opstarten en zet een waarschuwing in de console
+van de browser als het juiste antwoord te vaak op dezelfde plek staat of te vaak de
+langste optie is. Open de ontwikkelaarsconsole (F12) nadat je vragen hebt aangepast en
+kijk of er iets rood of geel verschijnt.
+
 In elke tekst mag je gebruiken:
 
 - `*tussen sterretjes*` wordt vetgedrukt

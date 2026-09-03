@@ -97,6 +97,48 @@
     };
   }
 
+  // Twee gratis hints waar een toets ongemerkt in vervalt: het juiste antwoord
+  // staat steeds op dezelfde plek, of het is steeds het langste. Dan kun je
+  // gokken zonder de vraag te lezen. Deze controle draait alleen in de console
+  // en verandert niets aan de cursus.
+  function controleerVragen() {
+    var vragen = alleVragen();
+    if (vragen.length < 3) return;
+
+    var perPlek = {};
+    var vaakstLangste = 0;
+
+    vragen.forEach(function (v) {
+      perPlek[v.blok.goed] = (perPlek[v.blok.goed] || 0) + 1;
+
+      var lengtes = v.blok.opties.map(function (o) { return o.length; });
+      var langste = Math.max.apply(null, lengtes);
+      if (lengtes[v.blok.goed] === langste) {
+        vaakstLangste++;
+        var rest = lengtes.slice();
+        rest.splice(v.blok.goed, 1);
+        var tweede = Math.max.apply(null, rest);
+        if (langste > tweede * 1.3) {
+          console.warn('[vragen] Het juiste antwoord is veel langer dan de rest bij: "' +
+                       v.blok.vraag.slice(0, 60) + '..." Maak de afleiders even lang.');
+        }
+      }
+    });
+
+    Object.keys(perPlek).forEach(function (plek) {
+      if (perPlek[plek] > vragen.length / 2) {
+        console.warn('[vragen] Het juiste antwoord staat ' + perPlek[plek] + ' van de ' +
+                     vragen.length + ' keer op plek ' + (Number(plek) + 1) +
+                     '. Verdeel ze beter over de vier plekken.');
+      }
+    });
+
+    if (vaakstLangste > vragen.length / 2) {
+      console.warn('[vragen] Bij ' + vaakstLangste + ' van de ' + vragen.length +
+                   ' vragen is het juiste antwoord de langste optie. Dat is een gratis hint.');
+    }
+  }
+
   function alleVragenBeantwoord() {
     return alleVragen().every(function (v) {
       return staat.antwoorden[v.sleutel] !== undefined;
@@ -590,6 +632,7 @@
         'komma of accolade ontbreekt.</p></div>';
       return;
     }
+    controleerVragen();
     window.SCORM.start();
     bouwFrame();
     herstel();
