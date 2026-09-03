@@ -108,6 +108,37 @@ registraties kwijt.
 
 ---
 
+## Online zetten
+
+De cursus staat ook op GitHub Pages, zodat je hem kunt bekijken en delen zonder
+Brightspace:
+
+**https://fabianb88.github.io/abc-tentamen-elearning/**
+
+Pages publiceert de map `docs`, en `bouw.ps1` vult die met exact dezelfde bestanden als
+de zip. Wat online staat is dus altijd hetzelfde als wat studenten in Brightspace
+krijgen. Publiceren gaat zo:
+
+```bash
+powershell -ExecutionPolicy Bypass -File tools\bouw.ps1
+git add -A
+git commit -m "inhoud bijgewerkt"
+git push
+```
+
+Een minuut later staat het er. `dist` blijft buiten git, die wordt elke keer opnieuw
+gemaakt.
+
+Twee dingen om te weten. **De pagina is openbaar.** GitHub Pages heeft geen server, dus
+afschermen kan niet; een JS-inlog zou een gordijn zijn. Daarom staat er een
+`noindex, nofollow` in `index.html`, zodat hij niet in Google komt. Een `robots.txt`
+helpt hier niet: crawlers lezen alleen die van `fabianb88.github.io` zelf, niet die van
+een project-repo. **En zonder LMS is er geen registratie**: op Pages bewaart de cursus de
+voortgang in de browser van de bezoeker. Wie het gemaakt heeft zie je alleen via het
+SCORM-pakket in Brightspace.
+
+---
+
 ## Hoe het in elkaar zit
 
 ```
@@ -119,9 +150,13 @@ src/
   scorm.js          praat met Brightspace
   imsmanifest.xml   vertelt Brightspace hoe het pakket start
   scorm-test.html   nep-LMS om te testen (gaat niet mee in de zip)
+docs/               wat GitHub Pages publiceert, gegenereerd door bouw.ps1
 tools/
-  bouw.ps1          maakt dist/ en de zip
+  bouw.ps1          maakt dist/ (de zip) en docs/ (de website)
 ```
+
+Bewerk nooit iets in `docs`: die map wordt bij elke build leeggegooid en opnieuw
+gevuld vanuit `src`.
 
 **Zonder LMS werkt de cursus gewoon door.** `scorm.js` zoekt een LMS-API in de
 vensters erboven; vindt hij niets, dan valt de voortgang terug op `localStorage` van
