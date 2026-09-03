@@ -40,20 +40,18 @@ volgende keer nog. Velden: `kop` en `items`.
 `uitleg`. Het veld `goed` telt vanaf nul: `goed: 0` is het eerste antwoord, `goed: 1`
 het tweede. Verwissel je antwoorden van volgorde, tel dan opnieuw.
 
-### Twee valkuilen bij het schrijven van vragen
+### Let op waar het juiste antwoord staat
 
-Schrijf je een nieuwe vraag, let dan op twee hints die je ongemerkt weggeeft.
+Laat het juiste antwoord niet steeds op dezelfde plek staan. In de eerste versie stond
+het zes keer op rij op plek 2, en dan kun je gokken zonder de vraag te lezen. Verdeel ze
+over alle vier de posities. De cursus controleert dit bij het opstarten en zet een
+waarschuwing in de console van de browser als het patroon terugkomt. Open de
+ontwikkelaarsconsole met F12 nadat je vragen hebt aangepast.
 
-Ten eerste: laat het juiste antwoord niet steeds op dezelfde plek staan. Verdeel ze over
-alle vier de posities. Ten tweede, en dit is de sterkste van de twee: maak het juiste
-antwoord niet langer dan de afleiders. Wie merkt dat het langste antwoord meestal goed
-is, hoeft de vraag niet meer te lezen. Houd de vier opties ongeveer even lang; dat kost
-even werk aan de afleiders, maar dat is precies waar het om gaat.
-
-De cursus controleert dit zelf bij het opstarten en zet een waarschuwing in de console
-van de browser als het juiste antwoord te vaak op dezelfde plek staat of te vaak de
-langste optie is. Open de ontwikkelaarsconsole (F12) nadat je vragen hebt aangepast en
-kijk of er iets rood of geel verschijnt.
+Wat we bewust **niet** doen, is de antwoorden even lang maken. In een echt tentamen is
+een lang juist antwoord een gratis hint, maar dit is een leercheck. Een antwoord mag hier
+uitleggen waarom het klopt, ook als het daardoor langer wordt dan de afleiders — de
+bedoeling is dat iemand er iets van opsteekt, niet dat we hem eruit filteren.
 
 In elke tekst mag je gebruiken:
 

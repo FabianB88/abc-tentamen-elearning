@@ -97,32 +97,20 @@
     };
   }
 
-  // Twee gratis hints waar een toets ongemerkt in vervalt: het juiste antwoord
-  // staat steeds op dezelfde plek, of het is steeds het langste. Dan kun je
-  // gokken zonder de vraag te lezen. Deze controle draait alleen in de console
-  // en verandert niets aan de cursus.
+  // Staat het juiste antwoord steeds op dezelfde plek, dan kun je gokken zonder
+  // de vraag te lezen. Deze controle waarschuwt daarvoor in de console en
+  // verandert niets aan de cursus.
+  //
+  // De lengte van de antwoorden controleren we bewust niet. Dit is een
+  // leercheck, geen tentamen: een antwoord mag uitleggen waarom het klopt, ook
+  // als het daardoor langer wordt dan de afleiders.
   function controleerVragen() {
     var vragen = alleVragen();
     if (vragen.length < 3) return;
 
     var perPlek = {};
-    var vaakstLangste = 0;
-
     vragen.forEach(function (v) {
       perPlek[v.blok.goed] = (perPlek[v.blok.goed] || 0) + 1;
-
-      var lengtes = v.blok.opties.map(function (o) { return o.length; });
-      var langste = Math.max.apply(null, lengtes);
-      if (lengtes[v.blok.goed] === langste) {
-        vaakstLangste++;
-        var rest = lengtes.slice();
-        rest.splice(v.blok.goed, 1);
-        var tweede = Math.max.apply(null, rest);
-        if (langste > tweede * 1.3) {
-          console.warn('[vragen] Het juiste antwoord is veel langer dan de rest bij: "' +
-                       v.blok.vraag.slice(0, 60) + '..." Maak de afleiders even lang.');
-        }
-      }
     });
 
     Object.keys(perPlek).forEach(function (plek) {
@@ -132,11 +120,6 @@
                      '. Verdeel ze beter over de vier plekken.');
       }
     });
-
-    if (vaakstLangste > vragen.length / 2) {
-      console.warn('[vragen] Bij ' + vaakstLangste + ' van de ' + vragen.length +
-                   ' vragen is het juiste antwoord de langste optie. Dat is een gratis hint.');
-    }
   }
 
   function alleVragenBeantwoord() {

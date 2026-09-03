@@ -85,10 +85,13 @@ window.INHOUD = {
             'Je tentamen is op maandag 12 januari, vlak na de kerstvakantie. Wanneer moet ' +
             'je je uiterlijk hebben ingeschreven?',
           opties: [
-            'Tien werkdagen ervoor, en de kerstvakantie telt niet mee.',
+            'Tien werkdagen ervoor. Weekenden, lesvrije dagen en de kerstvakantie tellen ' +
+              'niet mee, dus je moet flink verder terugtellen dan 2 januari.',
             'Tien kalenderdagen ervoor, dus uiterlijk op 2 januari.',
-            'Op de eerste maandag na de kerstvakantie is vroeg genoeg.',
-            'Niet, want inschrijven voor onderwijs regelt je tentamen al.'
+            'Op de eerste maandag na de kerstvakantie. Zolang het voor het tentamen is, ' +
+              'kun je je nog inschrijven.',
+            'Je hoeft niets te doen: ben je ingetekend voor het onderwijs, dan sta je ' +
+              'ook ingeschreven voor het tentamen.'
           ],
           goed: 0,
           uitleg:
@@ -162,10 +165,12 @@ window.INHOUD = {
             'Je tentamen begint om 9.00 uur. Door een treinstoring sta je om 9.20 uur voor ' +
             'de deur. Wat gebeurt er?',
           opties: [
-            'Je mag meteen naar binnen en krijgt 20 minuten extra tijd.',
-            'Je mag meteen naar binnen, maar zonder extra tijd.',
-            'Je mag vandaag niet meer meedoen en moet herkansen.',
-            'Je wacht buiten tot 9.30 uur en mist dus een half uur.'
+            'Je mag meteen naar binnen en krijgt 20 minuten extra tijd, omdat de ' +
+              'vertraging niet jouw schuld is.',
+            'Je mag meteen naar binnen, maar je krijgt geen extra tijd.',
+            'Je mag vandaag niet meer meedoen en moet het tentamen herkansen.',
+            'Je wacht buiten tot 9.30 uur, gaat dan naar binnen en krijgt geen extra ' +
+              'tijd. Je mist dus een half uur van je tentamen.'
           ],
           goed: 3,
           uitleg:
@@ -225,10 +230,14 @@ window.INHOUD = {
           vraag:
             'Je hebt een Chromebook en je eerste tentamen is over drie weken. Wat doe je?',
           opties: [
-            'Je meldt je op de tentamendag bij de surveillant voor een laptop.',
-            'Je vraagt nu een leenlaptop aan via een zaak in Osiris.',
-            'Je wacht tot de tentamenweek en vraagt dan een leenlaptop aan.',
-            'Je gebruikt je telefoon als hotspot voor je Chromebook.'
+            'Niets. Je meldt je op de tentamendag bij de surveillant, daar staan ' +
+              'leenlaptops klaar.',
+            'Je vraagt nu meteen een leenlaptop aan via Osiris - Zaak - leenlaptop ' +
+              't.b.v. Schoolyear, want dat kost meerdere werkdagen.',
+            'Je wacht tot de week van het tentamen en vraagt dan een leenlaptop aan, ' +
+              'dan weet je zeker dat je hem nodig hebt.',
+            'Je verbindt je Chromebook via je telefoon met een hotspot, dan werkt ' +
+              'Schoolyear wel.'
           ],
           goed: 1,
           uitleg:
@@ -293,10 +302,12 @@ window.INHOUD = {
             'Je hebt de laptopcheck vorige tentamenperiode gedaan en die ging goed. Moet je ' +
             'hem nu opnieuw doen?',
           opties: [
-            'Ja, voor iedere tentamenperiode opnieuw, vanwege updates.',
-            'Nee, een keer per studiejaar is genoeg.',
-            'Nee, zolang je dezelfde laptop houdt hoeft het niet nog eens.',
-            'Alleen als je sinds de vorige keer een nieuwe laptop hebt.'
+            'Ja, voor iedere tentamenperiode opnieuw, tussen de eerste dag van de maand ' +
+              'en het begin van de tentamenperiode.',
+            'Nee, een keer per studiejaar is genoeg, aan het begin van je eerste periode.',
+            'Nee, zolang je dezelfde laptop gebruikt hoef je de check niet nog een keer ' +
+              'te doen.',
+            'Alleen als je sinds de vorige keer een nieuwe laptop hebt gekocht.'
           ],
           goed: 0,
           uitleg:
@@ -351,9 +362,12 @@ window.INHOUD = {
             'Je bent midden in een verslag als je bedenkt dat je de laptopcheck en de ' +
             'oefentoets nog moet doen. Wat doe je eerst?',
           opties: [
-            'Je begint meteen, je verslag blijft op de achtergrond staan.',
-            'Je doet alleen de laptopcheck, want daarbij herstart je niet.',
-            'Je slaat je werk op en sluit je bestanden, en begint dan pas.',
+            'Je begint meteen. Je verslag staat op de achtergrond en blijft gewoon ' +
+              'openstaan.',
+            'Je doet alleen de laptopcheck en slaat de oefentoets over, want bij de ' +
+              'check herstart je laptop niet.',
+            'Je slaat je verslag op en sluit je bestanden af, en begint daarna pas aan ' +
+              'de check en de oefentoets.',
             'Je stelt het uit tot je verslag af is, ergens volgende maand.'
           ],
           goed: 2,
@@ -396,10 +410,13 @@ window.INHOUD = {
             'Je doet de laptopcheck en Schoolyear start niet op. Je komt er zelf niet uit ' +
             'en het is periode 1. Wat is je beste volgende stap?',
           opties: [
-            'Je wacht tot de tentamendag en meldt het daar bij de surveillant.',
-            'Je leent op de tentamendag de laptop van een medestudent.',
-            'Je vraagt uitstel van het tentamen aan bij je begeleider.',
-            'Je mailt het tentamenbureau of gaat naar een inloopspreekuur.'
+            'Je wacht tot de tentamendag en meldt het daar bij de surveillant, die kan ' +
+              'het ter plekke oplossen.',
+            'Je leent op de tentamendag de laptop van een medestudent die dan geen ' +
+              'tentamen heeft.',
+            'Je vraagt uitstel van het tentamen aan bij je studieloopbaanbegeleider.',
+            'Je mailt tentamenbureau.abc@han.nl of gaat langs bij een inloopspreekuur, ' +
+              'en regelt het nu meteen.'
           ],
           goed: 3,
           uitleg:
