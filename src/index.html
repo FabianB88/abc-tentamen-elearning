@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Deze pagina staat op GitHub Pages en is dus openbaar bereikbaar. De
+       meta-tag houdt hem uit Google. Een robots.txt in een project-repo doet
+       niets: crawlers lezen alleen die van fabianb88.github.io zelf. -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>E-learning</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a class="overslaan" href="#inhoud">Naar de inhoud</a>
+
+  <div class="voortgangsbalk" id="balk-wrap" role="progressbar"
+       aria-labelledby="balk-tekst" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div id="balk"></div>
+  </div>
+
+  <header class="kop">
+    <button type="button" class="hamburger" id="menu-schakel"
+            aria-expanded="false" aria-controls="zijkant">
+      <span class="hamburger-lijnen" aria-hidden="true"></span>
+      <span class="hamburger-tekst">Hoofdstukken</span>
+    </button>
+
+    <div class="kop-titel">
+      <h1 id="cursus-titel">E-learning</h1>
+      <p id="cursus-ondertitel"></p>
+    </div>
+
+    <p class="kop-voortgang" id="balk-tekst">Nog niet begonnen</p>
+  </header>
+
+  <div class="overlay" id="overlay" hidden></div>
+
+  <nav class="zijkant" id="zijkant" aria-label="Hoofdstukken">
+    <div class="zijkant-kop">
+      <p>Inhoud</p>
+      <button type="button" id="menu-sluit" aria-label="Menu sluiten">&times;</button>
+    </div>
+    <div id="menu"></div>
+  </nav>
+
+  <main id="inhoud" tabindex="-1">
+    <div class="scherm">
+      <div class="les-body">
+        <h2>Bezig met laden&hellip;</h2>
+        <p>Als dit bericht blijft staan, lukt het niet om de inhoud te laden.
+           Controleer of <code>inhoud.js</code> naast dit bestand staat.</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="inhoud.js"></script>
+  <script src="scorm.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

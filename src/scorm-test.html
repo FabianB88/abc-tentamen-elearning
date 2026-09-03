@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SCORM-zelftest</title>
+<style>
+  body { margin:0; font:14px/1.5 "Segoe UI", system-ui, sans-serif; background:#f7f6f5; }
+  header { background:#fff; border-bottom:1px solid #d9d9d9; padding:.9rem 1.25rem; }
+  h1 { margin:0; font-size:1rem; }
+  p.uitleg { margin:.35rem 0 0; color:#4a4a4a; font-size:.85rem; }
+  .romp { display:grid; grid-template-columns:1fr 26rem; height:calc(100vh - 4.4rem); }
+  iframe { width:100%; height:100%; border:0; border-right:1px solid #d9d9d9; background:#fff; }
+  .paneel { overflow:auto; padding:1rem 1.25rem 3rem; }
+  h2 { font-size:.8rem; text-transform:uppercase; letter-spacing:.06em; color:#4a4a4a;
+       margin:1.25rem 0 .5rem; }
+  h2:first-of-type { margin-top:0; }
+  table { border-collapse:collapse; width:100%; font-size:.82rem; }
+  td { border-bottom:1px solid #ececec; padding:.3rem .25rem; vertical-align:top; }
+  td:first-child { color:#4a4a4a; white-space:nowrap; padding-right:.75rem; }
+  td:last-child { font-weight:600; word-break:break-word; }
+  ol { margin:0; padding-left:1.4rem; font-size:.78rem; font-family:Consolas, monospace; }
+  ol li { margin-bottom:.2rem; color:#4a4a4a; }
+  .knop { font:inherit; padding:.5rem 1rem; border:1px solid #d9d9d9; border-radius:6px;
+          background:#fff; cursor:pointer; margin-right:.4rem; }
+  .status { font-weight:700; }
+  .ok { color:#0f6b3d; } .fout { color:#a3122b; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SCORM-zelftest</h1>
+  <p class="uitleg">Deze pagina doet zich voor als Brightspace. Doorloop de cursus links en
+    kijk rechts of de juiste waarden worden weggeschreven. Dit bestand komt <strong>niet</strong>
+    in het SCORM-pakket terecht.</p>
+</header>
+
+<div class="romp">
+  <iframe id="cursus" title="De cursus in een nagebootste LMS"></iframe>
+  <div class="paneel">
+    <h2>Wat de LMS zou opslaan</h2>
+    <table id="model"></table>
+
+    <h2>Verwacht na volledig doorlopen</h2>
+    <table>
+      <tr><td>lesson_status</td><td class="status" id="v-status">-</td></tr>
+      <tr><td>score.raw</td><td class="status" id="v-score">-</td></tr>
+      <tr><td>Netjes afgesloten</td><td class="status" id="v-finish">-</td></tr>
+    </table>
+
+    <h2>Alle aanroepen</h2>
+    <p><button class="knop" id="wis">Wissen</button>
+       <button class="knop" id="herstart">Opnieuw beginnen</button></p>
+    <ol id="log" reversed></ol>
+  </div>
+</div>
+
+<script>
+/* Een minimale nep-LMS die zich houdt aan de SCORM 1.2 runtime-API. */
+var model = {
+  'cmi.core.student_id': '0000000',
+  'cmi.core.student_name': 'Test, Student',
+  'cmi.core.lesson_status': 'not attempted',
+  'cmi.core.lesson_location': '',
+  'cmi.core.score.raw': '',
+  'cmi.core.score.min': '',
+  'cmi.core.score.max': '',
+  'cmi.suspend_data': '',
+  'cmi.core.credit': 'credit',
+  'cmi.core.entry': 'ab-initio',
+  'cmi.core.exit': ''
+};
+var fout = '0', geinitialiseerd = false, afgesloten = false, regels = [];
+
+function noteer(tekst) {
+  regels.unshift(new Date().toLocaleTimeString('nl-NL') + '  ' + tekst);
+  teken();
+}
+
+window.API = {
+  LMSInitialize: function () {
+    geinitialiseerd = true; noteer('LMSInitialize()  -> true'); return 'true';
+  },
+  LMSFinish: function () {
+    afgesloten = true; noteer('LMSFinish()  -> true'); teken(); return 'true';
+  },
+  LMSGetValue: function (k) {
+    var w = model[k] === undefined ? '' : model[k];
+    if (model[k] === undefined) { fout = '401'; }
+    noteer('LMSGetValue("' + k + '")  -> "' + w + '"');
+    return w;
+  },
+  LMSSetValue: function (k, w) {
+    model[k] = String(w);
+    noteer('LMSSetValue("' + k + '", "' + w + '")  -> true');
+    teken();
+    return 'true';
+  },
+  LMSCommit: function () { noteer('LMSCommit()  -> true'); return 'true'; },
+  LMSGetLastError: function () { return fout; },
+  LMSGetErrorString: function () { return fout === '0' ? 'No error' : 'Error ' + fout; },
+  LMSGetDiagnostic: function () { return ''; }
+};
+
+function zet(id, waarde, goed) {
+  var n = document.getElementById(id);
+  n.textContent = waarde;
+  n.className = 'status ' + (goed ? 'ok' : 'fout');
+}
+
+function teken() {
+  var t = document.getElementById('model');
+  t.innerHTML = Object.keys(model).map(function (k) {
+    var w = model[k];
+    if (k === 'cmi.suspend_data' && w.length > 90) w = w.slice(0, 90) + '… (' + w.length + ' tekens)';
+    return '<tr><td>' + k.replace('cmi.core.', '').replace('cmi.', '') +
+           '</td><td>' + (w === '' ? '&mdash;' : w.replace(/</g, '&lt;')) + '</td></tr>';
+  }).join('');
+
+  var st = model['cmi.core.lesson_status'];
+  var goedeStatus = st === 'passed' || st === 'completed';
+  zet('v-status', st, goedeStatus);
+  zet('v-score', model['cmi.core.score.raw'] || '—',
+      model['cmi.core.score.raw'] !== '');
+  zet('v-finish', afgesloten ? 'ja' : 'nog niet', afgesloten);
+
+  document.getElementById('log').innerHTML =
+    regels.slice(0, 200).map(function (r) { return '<li>' + r.replace(/</g, '&lt;') + '</li>'; }).join('');
+}
+
+document.getElementById('wis').onclick = function () { regels = []; teken(); };
+document.getElementById('herstart').onclick = function () {
+  try { document.getElementById('cursus').contentWindow.localStorage.clear(); } catch (e) {}
+  document.getElementById('cursus').src = 'index.html?t=' + Date.now();
+};
+
+document.getElementById('cursus').src = 'index.html';
+teken();
+</script>
+</body>
+</html>
